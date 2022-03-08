@@ -1,23 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 function App() {
+  const [data, setData] = useState<String>();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {`https://hk.iherb.com/search?kw=${data}`}
+        {data && (
+          <iframe
+            src={`https://hk.iherb.com/search?kw=${data}`}
+            title="iherb-iframe"
+            width={"100%"}
+            height={"100%"}
+          />
+        )}
+        {!data && (
+          <BarcodeScannerComponent
+            width={250}
+            height={250}
+            onUpdate={(err, result) => {
+              if (result) {
+                console.log(result.getText());
+                setData(result.getText().slice(1));
+              } else setData(undefined);
+            }}
+          />
+        )}
       </header>
     </div>
   );
