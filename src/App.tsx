@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 function App() {
   const [data, setData] = useState<String>();
+
+  const iherbIframe = useRef<HTMLIFrameElement>(null);
+
+  const checkIherbIframeContent = () => {
+    const currentIframe = iherbIframe.current;
+    if (currentIframe) {
+      console.log(currentIframe.contentWindow?.document);
+    }
+  };
 
   return (
     <div className="App">
@@ -15,6 +24,8 @@ function App() {
             title="iherb-iframe"
             width={"100%"}
             height={"100%"}
+            ref={iherbIframe}
+            onLoad={checkIherbIframeContent}
           />
         )}
         {!data && (
