@@ -1,35 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
-import axios from "axios";
-import * as cheerio from "cheerio";
-import { setMaxListeners } from "process";
 
 function App() {
   const [data, setData] = useState<String>();
-  const [name, setName] = useState<String>();
-
-  useEffect(() => {
-    axios
-      .get(
-        `https://cors-anywhere.herokuapp.com/https://www.iherb.com/search?kw=${data}`
-      )
-      .then((response) => {
-        const $ = cheerio.load(response.data);
-        $.html();
-        setName(
-          $(".product-inner").children().first().children().first().attr().title
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [data]);
 
   return (
     <div className="App">
       <header className="App-header">
-        {name}
+        {`https://hk.iherb.com/search?kw=${data}`}
+        {data && (
+          <iframe
+            src={`https://hk.iherb.com/search?kw=${data}`}
+            title="iherb-iframe"
+            width={"100%"}
+            height={"100%"}
+          />
+        )}
         {!data && (
           <BarcodeScannerComponent
             width={250}
