@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
+import axios from "axios";
 
 function App() {
   const [data, setData] = useState<String>();
 
+  useEffect(() => {
+    if (data) {
+      axios
+        .get(`http://127.0.0.1:5000/iherbbarcode/${data}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [data]);
+
   return (
     <div className="App">
       <header className="App-header">
-        {`https://hk.iherb.com/search?kw=${data}`}
         {data && (
           <iframe
             src={`https://hk.iherb.com/search?kw=${data}`}
             title="iherb-iframe"
-            width={"100%"}
-            height={"100%"}
+            width="100%"
+            height={500}
           />
         )}
         {!data && (
@@ -23,9 +34,9 @@ function App() {
             height={250}
             onUpdate={(err, result) => {
               if (result) {
-                console.log(result.getText());
+                console.log(result.getText().slice(1));
                 setData(result.getText().slice(1));
-              } else setData(undefined);
+              } else setData("898220010653");
             }}
           />
         )}
