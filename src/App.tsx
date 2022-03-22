@@ -2,14 +2,15 @@ import React from "react";
 import "./App.css";
 import "antd/dist/antd.css";
 
-import Home from "./Pages/Home";
+import MyLayout from "./Components/MyLayout";
+import Urls from "./Urls";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Home />
-      </header>
+      <MyLayout>
+        <Urls />
+      </MyLayout>
     </div>
   );
 }
