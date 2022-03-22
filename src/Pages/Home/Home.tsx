@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     if (data) {
       axios
-        .get(`http://127.0.0.1:5000/iherbbarcode/${data}`)
+        .get(`/iherbbarcode/${data}`)
         .then((response) => {
           const obj = response.data;
           const name = Object.keys(obj)[0];
