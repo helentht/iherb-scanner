@@ -19,6 +19,9 @@ function Home() {
           const name = Object.keys(obj)[0];
           setName(name);
           setPrice(obj[name]);
+          localStorage.setItem("name", name);
+          localStorage.setItem("price", obj[name]);
+          localStorage.setItem("dateAdded", new Date().toDateString());
         })
         .catch((error) => console.error(error));
     }

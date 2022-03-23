@@ -11,7 +11,7 @@ function Mylayout(props: MyLayoutProps) {
   return (
     <Layout>
       <Sider breakpoint="lg" collapsedWidth={0}>
-        <Menu mode="inline">
+        <Menu mode="inline" theme="dark">
           <Menu.Item key="1">
             <a href="/">Home</a>
           </Menu.Item>
