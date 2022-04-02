@@ -21,9 +21,19 @@ function Home() {
           setName(name);
           setPrice(obj[name]);
           setIsSpinning(false);
-          localStorage.setItem("name", name);
-          localStorage.setItem("price", obj[name]);
-          localStorage.setItem("dateAdded", new Date().toDateString());
+
+          const newItem = {
+            name: name,
+            price: obj[name],
+            dateAdded: new Date().toDateString(),
+          };
+
+          const originalListString = localStorage.getItem("records");
+          const originalList = JSON.parse(originalListString ?? "[]");
+
+          originalList.push(newItem);
+          const newListString = JSON.stringify(originalList);
+          localStorage.setItem("records", newListString);
         })
         .catch((error) => console.error(error));
     }

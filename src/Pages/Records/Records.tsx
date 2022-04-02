@@ -1,19 +1,33 @@
-import React from "react";
-import { Typography, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table } from "antd";
 
-const { Text } = Typography;
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
+    key: "price",
+  },
+  {
+    title: "Date Added",
+    dataIndex: "dateAdded",
+    key: "dateAdded",
+  },
+];
+
 function Records() {
-  return (
-    <>
-      <Space direction="vertical">
-        <Text mark>Scanned name: {localStorage.getItem("name")}</Text>
-        <Text keyboard>Price: {localStorage.getItem("price")}</Text>
-        <Text type="success">
-          Date added: {localStorage.getItem("dateAdded")}
-        </Text>
-      </Space>
-    </>
-  );
+  const [records, setRecords] = useState();
+
+  useEffect(() => {
+    const recordsString = localStorage.getItem("records");
+    const records = JSON.parse(recordsString ?? "[]");
+    setRecords(records);
+  }, []);
+  return <Table dataSource={records} columns={columns} />;
 }
 
 export default Records;
