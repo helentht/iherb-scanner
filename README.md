@@ -19,6 +19,10 @@ source venv/bin/activate
 ```
 
 ```shell
+pip install -r requirements.txt
+```
+
+```shell
 flask run
 ```
 
